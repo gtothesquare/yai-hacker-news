@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-micro';
 export const typeDefs = gql`
   type Query {
     "Top stories in hacker news"
-    topStories: [Story!]!
+    topStories(limit: Int = 30, offset: Int = 0): [Story!]!
     "Specific item of type story"
     story(id: ID!): Story!
   }
@@ -20,6 +20,8 @@ export const typeDefs = gql`
     by: String!
     url: String
     time: Int!
-    comments: [Int]
+    kids: [Int]
+    text: String
+    totalKidsCount: Int
   }
 `;

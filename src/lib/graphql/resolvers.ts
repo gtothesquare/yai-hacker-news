@@ -1,7 +1,15 @@
+export interface PagingArgsTypes {
+  limit: number;
+  offset: number;
+}
 export const resolvers = {
   Query: {
-    topStories: (_: any, __: any, { dataSources }: Record<any, any>) => {
-      return dataSources.hackerNewsAPI.getTopStories();
+    topStories: (
+      _: any,
+      { limit, offset }: PagingArgsTypes,
+      { dataSources }: Record<any, any>
+    ) => {
+      return dataSources.hackerNewsAPI.getTopStories({ limit, offset });
     },
     story: (
       _: any,
