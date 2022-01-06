@@ -2,15 +2,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 
-type Data = {
-  name: string;
-};
+
+type Item = {
+  descendants: number | undefined;
+  by: string
+  parent: number
+  id: number
+  type: "comment" | "story" | "job" | "poll" | "pollopt"
+  kids: [number]
+  time: number
+}
+
 
 async function getItem(id: number) {
   const response = await fetch(
     `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
-  const itemData = await response.json();
+  const itemData = (await response.json()) as Item
   return {
     ...itemData,
     totalKidsCount: itemData?.descendants || 0,
@@ -41,7 +49,7 @@ async function getAllComments(ids: [number]): Promise<Array<any>> {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Array<Item>>
 ) {
   const { itemId } = req.query;
   const id = itemId as unknown;
@@ -49,6 +57,5 @@ export default async function handler(
 
   const allComments = await getAllComments(rootItem.kids);
 
-  // @ts-ignore
   res.status(200).json(allComments);
 }
