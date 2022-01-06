@@ -11,21 +11,28 @@ export const resolvers = {
     ) => {
       return dataSources.hackerNewsAPI.getTopStories({ limit, offset });
     },
-    story: (
+    item: (
       _: any,
       { id }: { id: number },
       { dataSources }: Record<any, any>
     ) => {
-      return dataSources.hackerNewsAPI.getStory(id);
+      return dataSources.hackerNewsAPI.getItem(id);
     },
   },
-  Story: {
-    payload: (
-      { id }: { id: number },
-      _: any,
-      { dataSources }: Record<any, any>
-    ) => {
-      return dataSources.hackerNewsAPI.getStory(id);
+  Item: {
+    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
+      if (!Array.isArray(kids)) {
+        return [];
+      }
+      return dataSources.hackerNewsAPI.getKids(kids);
+    },
+  },
+  Comment: {
+    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
+      if (!Array.isArray(kids)) {
+        return [];
+      }
+      return dataSources.hackerNewsAPI.getKids(kids);
     },
   },
 };

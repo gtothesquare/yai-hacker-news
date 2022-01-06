@@ -10,18 +10,41 @@ export class HackerNewsAPI extends RESTDataSource {
   async getTopStories({ limit, offset }: PagingArgsTypes) {
     const storyIds = await this.get('topstories.json');
 
-    const allStoryIds =  storyIds.map((id: number) => ({ id }));
-    const temp = allStoryIds.slice(offset, limit + offset);
-    console.log(offset, limit,temp);
-    return temp
+    const allStoryIds = storyIds.map((id: number, index: number) => ({
+      id,
+      place: index + 1,
+    }));
+    const pageStoryIds = allStoryIds.slice(offset, limit + offset);
+    const pageStoryData = pageStoryIds.map(
+      async ({ id, place }: { id: number; place: number }) => {
+        const data = await this.getItem(id);
+        return {
+          ...data,
+          id,
+          place,
+        };
+      }
+    );
+    return Promise.all(pageStoryData);
   }
 
-  async getStory(id: number) {
-    const res = await this.get(`item/${id}.json`);
-    const { descendants, ...storyData } = res;
+  async getItem(id: number) {
+    const itemData = await this.get(`item/${id}.json`);
     return {
-      ...storyData,
-      totalKidsCount: descendants,
+      ...itemData,
+      totalKidsCount: itemData?.descendants || 0,
     };
   }
+  async getKids(ids: [number]) {
+    const kidsData = ids.map(async (id: number) => {
+      const data = await this.getItem(id);
+      return {
+        ...data,
+        id,
+      };
+    });
+    return Promise.all(kidsData);
+  }
+
+
 }

@@ -1,17 +1,26 @@
 import React from 'react';
-import { SimpleGrid, Center, Spacer } from '@chakra-ui/react';
+import { Flex, Center } from '@chakra-ui/react';
 import { Header } from './Header';
+import { Footer } from './Footer';
 
 export interface LayoutProps {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 function Layout({ children }: LayoutProps) {
   return (
-    <SimpleGrid>
+    <Flex
+      height="100%"
+      flexDirection="column"
+      minHeight="100vh"
+      justifyContent="space-between"
+    >
       <Header />
-      <Center>{children}</Center>
-    </SimpleGrid>
+      <Center width="100%">
+        {children}
+      </Center>
+      <Footer />
+    </Flex>
   );
 }
 

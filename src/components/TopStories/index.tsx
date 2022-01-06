@@ -1,39 +1,41 @@
 import React from 'react';
-import { Link, VStack } from '@chakra-ui/react';
-import { Story } from './types';
+import { VStack, Flex, Text, Link } from '@chakra-ui/react';
+import { Item } from './types';
 import {
   SecondLine,
-  StoryLink,
+  ItemLink,
   Container,
-  CommentsLink,
-  Author,
-  Score,
-} from './TopStory';
+
+} from 'components/Item';
+import { format } from 'timeago.js';
 
 interface TopStoriesProps {
-  data: [Story];
+  data: [Item];
 }
 
 function TopStories({ data }: TopStoriesProps) {
   return (
-    <VStack alignItems="left">
+    <VStack alignItems="left" width="100%" maxWidth={'960px'} padding={2}>
       {data.map(
-        (
-          {
-            id,
-            payload: { title, url, type, score, by, time, totalKidsCount },
-          }: Story,
-          index: number
-        ) => {
+        ({ id, place, title, url, score, by, totalKidsCount, time }: Item) => {
           return (
-            <Container key={id}>
-              <StoryLink storyNumber={index + 1} title={title} url={url} />
-              <SecondLine>
-                <Score score={score} />
-                <Author>{by}</Author>
-                <CommentsLink count={totalKidsCount} />
-              </SecondLine>
-            </Container>
+            <Flex key={id} w="100%">
+              <Text textAlign="right" color="gray.600" marginRight={1}>
+                {place}.
+              </Text>
+              <Container>
+                <ItemLink title={title} url={url} />
+                <SecondLine>
+                  {score} points by {by}
+                  <Link marginLeft={1} href={`/item/${id}`}>
+                    {format(time * 1000)}
+                  </Link>
+                  <Link marginLeft={1} href={`/item/${id}`}>
+                    {totalKidsCount} comments
+                  </Link>
+                </SecondLine>
+              </Container>
+            </Flex>
           );
         }
       )}

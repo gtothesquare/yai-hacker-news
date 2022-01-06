@@ -1,32 +1,38 @@
 import Head from 'next/head';
 import { Box } from '@chakra-ui/react';
 import { request, gql } from 'graphql-request';
-import { InferGetServerSidePropsType } from 'next';
+import { InferGetServerSidePropsType, NextApiRequest } from 'next';
 import { TopStories } from 'components/TopStories';
 import { Layout } from 'components/Common';
+import { getAbsoluteUrl } from '../lib/utils/getAbsoluteUrl';
+import { Params } from 'next/dist/server/router';
 
 const TopStoriesQuery = gql`
   {
     topStories {
       id
-      payload {
-        title
-        by
-        url
-        kids
-        totalKidsCount
-        text
-        score
-      }
+      place
+      title
+      by
+      url
+      totalKidsCount
+      text
+      time
+      score
     }
   }
 `;
 
-export const getServerSideProps = async () => {
-  const data = await request(
-    'http://localhost:3000/api/graphql',
-    TopStoriesQuery
-  );
+export const getServerSideProps = async ({
+  req,
+  params,
+}: {
+  req: NextApiRequest;
+  params: Params;
+}) => {
+  console.log(params);
+  const { origin } = getAbsoluteUrl({ req });
+  const data = await request(`${origin}/api/graphql`, TopStoriesQuery);
   return {
     props: {
       topStories: data?.topStories,
