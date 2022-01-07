@@ -34,15 +34,11 @@ async function getAllComments(ids: [number]): Promise<Array<any>> {
       const nextKidsData = await Promise.all(nextKids);
 
       return {
-        id,
         ...rootData,
         kids: nextKidsData,
       };
     }
-    return {
-      ...data,
-      id,
-    };
+    return data;
   });
   return Promise.all(kidsData);
 }

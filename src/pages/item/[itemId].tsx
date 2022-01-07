@@ -9,6 +9,11 @@ import { Layout } from 'components/Common';
 import { Item } from 'components/TopStories/types';
 import { Container, ItemLink, SecondLine } from '../../components/Item';
 import { format } from 'timeago.js';
+import fetch from 'node-fetch';
+import {
+  StoryComments,
+  StoryCommentsProps,
+} from '../../components/StoryComments/StoryComments';
 
 const ItemQuery = gql`
   query Item($itemId: ID!) {
@@ -18,14 +23,6 @@ const ItemQuery = gql`
       score
       by
       url
-      kids {
-        id
-        parent
-        kids {
-          id
-          parent
-        }
-      }
       totalKidsCount
     }
   }
@@ -41,14 +38,23 @@ export const getServerSideProps = async ({
   const { itemId } = params;
   const { origin } = getAbsoluteUrl({ req });
   const data = await request(`${origin}/api/graphql`, ItemQuery, { itemId });
+  const res = await fetch(`${origin}/api/all-comments/${itemId}`);
+  const storyComments = await res.json();
   return {
     props: {
       item: data?.item,
+      storyComments,
     },
   };
 };
 
-function Item({ item }: { item: Item }) {
+function Item({
+  item,
+  storyComments,
+}: {
+  item: Item;
+  storyComments: StoryCommentsProps;
+}) {
   const { id, title, url, score, by, time, totalKidsCount } = item;
   return (
     <Box as="main" height="100%">
@@ -78,9 +84,7 @@ function Item({ item }: { item: Item }) {
               </SecondLine>
             </Container>
           </Flex>
-        </VStack>
-        <VStack>
-
+          <StoryComments commentsTree={storyComments} />
         </VStack>
       </Layout>
     </Box>
