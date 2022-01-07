@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { Params } from 'next/dist/server/router';
 import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
 import { gql, request } from 'graphql-request';
-import { Box, Flex, Link, VStack } from '@chakra-ui/react';
+import { Box, Flex, VStack, Text } from '@chakra-ui/react';
 import { Layout } from 'components/Common';
 import { Item } from 'components/TopStories/types';
 import { Container, ItemLink, SecondLine } from '../../components/Item';
@@ -12,7 +12,7 @@ import { format } from 'timeago.js';
 import fetch from 'node-fetch';
 import {
   StoryComments,
-  StoryCommentsProps,
+  CommentItem,
 } from '../../components/StoryComments/StoryComments';
 
 const ItemQuery = gql`
@@ -53,7 +53,7 @@ function Item({
   storyComments,
 }: {
   item: Item;
-  storyComments: StoryCommentsProps;
+  storyComments: [CommentItem];
 }) {
   const { id, title, url, score, by, time, totalKidsCount } = item;
   return (
@@ -75,12 +75,12 @@ function Item({
               <ItemLink title={title} url={url} />
               <SecondLine>
                 {score} points by {by}
-                <Link marginLeft={1} href={`/item/${id}`}>
+                <Text as="span" marginLeft={1}>
                   {format(time * 1000)}
-                </Link>
-                <Link marginLeft={1} href={`/item/${id}`}>
+                </Text>
+                <Text as="span" marginLeft={1}>
                   {totalKidsCount} comments
-                </Link>
+                </Text>
               </SecondLine>
             </Container>
           </Flex>

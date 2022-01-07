@@ -1,6 +1,6 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
-import { CommentProps, Comment } from './Comment';
+import { Box, VStack } from '@chakra-ui/react';
+import { Comment } from './Comment';
 
 // TODO merge types with api types
 export type CommentItem = {
@@ -11,6 +11,7 @@ export type CommentItem = {
   kids: [CommentItem];
   time: number;
   text: string;
+  deleted?: boolean;
 };
 
 export interface StoryCommentsProps {
@@ -19,9 +20,23 @@ export interface StoryCommentsProps {
 
 function StoryComments({ commentsTree }: StoryCommentsProps) {
   return (
-    <VStack paddingTop={5}>
-      {commentsTree.map(({ id, time, text, by }) => {
-        return <Comment time={time} by={by} id={id} text={text} key={id} />;
+    <VStack paddingTop={5} alignItems="flex-start">
+      {commentsTree?.map(({ id, time, text, by, deleted, kids }) => {
+        return (
+          <React.Fragment key={`${id}-container`}>
+            <Comment
+              key={id}
+              id={id}
+              time={time}
+              by={by}
+              text={text}
+              deleted={deleted}
+            />
+            <Box key={`${id}-comments`} paddingLeft={5}>
+              <StoryComments commentsTree={kids} />
+            </Box>
+          </React.Fragment>
+        );
       })}
     </VStack>
   );
