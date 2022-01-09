@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Center } from '@chakra-ui/react';
+import { Flex, VStack } from '@chakra-ui/react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 
@@ -16,9 +16,9 @@ function Layout({ children }: LayoutProps) {
       justifyContent="space-between"
     >
       <Header />
-      <Center width="100%">
+      <VStack width="100%" flex={1}>
         {children}
-      </Center>
+      </VStack>
       <Footer />
     </Flex>
   );

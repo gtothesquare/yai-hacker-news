@@ -4,16 +4,14 @@ import Head from 'next/head';
 import { Params } from 'next/dist/server/router';
 import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
 import { gql, request } from 'graphql-request';
-import { Box, Flex, VStack, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { Layout } from 'components/Common';
 import { Item } from 'components/TopStories/types';
-import { Container, ItemLink, SecondLine } from '../../components/Item';
+import { Container, ItemLink, SecondLine } from 'components/Item';
 import { format } from 'timeago.js';
 import fetch from 'node-fetch';
-import {
-  StoryComments,
-  CommentItem,
-} from '../../components/StoryComments/StoryComments';
+import { StoryComments, CommentItem } from 'components/StoryComments';
+import { MainContainer } from 'components/Common';
 
 const ItemQuery = gql`
   query Item($itemId: ID!) {
@@ -62,14 +60,7 @@ function Item({
         <title>Yai Hacker News | ${item?.title}</title>
       </Head>
       <Layout>
-        <VStack
-          height="100%"
-          alignItems="left"
-          width="100%"
-          maxWidth={960}
-          padding={2}
-          justifyContent="start"
-        >
+        <MainContainer>
           <Flex key={id} w="100%" height="100%">
             <Container>
               <ItemLink title={title} url={url} />
@@ -85,7 +76,7 @@ function Item({
             </Container>
           </Flex>
           <StoryComments commentsTree={storyComments} />
-        </VStack>
+        </MainContainer>
       </Layout>
     </Box>
   );

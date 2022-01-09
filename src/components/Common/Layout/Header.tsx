@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Center, Heading } from '@chakra-ui/react';
+import { Box, VStack, Heading, Link, Center } from '@chakra-ui/react';
 
 function Header() {
   return (
@@ -12,9 +12,16 @@ function Header() {
       width="100%"
     >
       <Center>
-        <Heading as="h1" size="lg" fontWeight="100" maxWidth={960}>
-          YHK - yet another hacker news clone
-        </Heading>
+        <VStack
+          alignItems="flexStart"
+          width="100%"
+          maxWidth={'960px'}
+          padding={2}
+        >
+          <Heading as="h1" size="lg" fontWeight="100" maxWidth={960}>
+            <Link href="/">YHK - yet another hacker news clone</Link>
+          </Heading>
+        </VStack>
       </Center>
     </Box>
   );

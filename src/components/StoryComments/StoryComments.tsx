@@ -21,7 +21,7 @@ export interface StoryCommentsProps {
 function StoryComments({ commentsTree }: StoryCommentsProps) {
   return (
     <VStack paddingTop={5} alignItems="flex-start">
-      {commentsTree?.map(({ id, time, text, by, deleted, kids }) => {
+      {commentsTree?.map(({ id, time, text, by, deleted, kids, parent }) => {
         return (
           <React.Fragment key={`${id}-container`}>
             <Comment
@@ -31,6 +31,7 @@ function StoryComments({ commentsTree }: StoryCommentsProps) {
               by={by}
               text={text}
               deleted={deleted}
+              parent={parent}
             />
             <Box key={`${id}-comments`} paddingLeft={5}>
               <StoryComments commentsTree={kids} />

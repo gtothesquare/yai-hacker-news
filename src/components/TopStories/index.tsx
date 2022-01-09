@@ -1,12 +1,8 @@
 import React from 'react';
-import { VStack, Flex, Text, Link } from '@chakra-ui/react';
+import { Flex, Text, Link } from '@chakra-ui/react';
 import { Item } from './types';
-import {
-  SecondLine,
-  ItemLink,
-  Container,
-
-} from 'components/Item';
+import { SecondLine, ItemLink, Container } from 'components/Item';
+import { MainContainer } from 'components/Common';
 import { format } from 'timeago.js';
 
 interface TopStoriesProps {
@@ -15,7 +11,7 @@ interface TopStoriesProps {
 
 function TopStories({ data }: TopStoriesProps) {
   return (
-    <VStack alignItems="left" width="100%" maxWidth={'960px'} padding={2}>
+    <MainContainer>
       {data.map(
         ({ id, place, title, url, score, by, totalKidsCount, time }: Item) => {
           return (
@@ -39,7 +35,7 @@ function TopStories({ data }: TopStoriesProps) {
           );
         }
       )}
-    </VStack>
+    </MainContainer>
   );
 }
 
