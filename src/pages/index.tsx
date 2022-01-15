@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box } from '@chakra-ui/react';
+import { Box, Center, Link } from '@chakra-ui/react';
 import { request, gql } from 'graphql-request';
 import { InferGetServerSidePropsType, NextApiRequest } from 'next';
 import { TopStories } from 'components/TopStories';
@@ -8,8 +8,8 @@ import { getAbsoluteUrl } from '../lib/utils/getAbsoluteUrl';
 import { Params } from 'next/dist/server/router';
 
 const TopStoriesQuery = gql`
-  {
-    topStories {
+  query TopStories($limit: Int, $offset: Int) {
+    topStories(limit: $limit, offset: $offset) {
       id
       place
       title
@@ -25,24 +25,32 @@ const TopStoriesQuery = gql`
 
 export const getServerSideProps = async ({
   req,
-  params,
+  query,
 }: {
   req: NextApiRequest;
-  params: Params;
+  query: Params;
 }) => {
-  console.log(params);
   const { origin } = getAbsoluteUrl({ req });
-  const data = await request(`${origin}/api/graphql`, TopStoriesQuery);
+  const page = query?.page || 1;
+  const limit = 40;
+  const offset = limit * (page - 1);
+  const data = await request(`${origin}/api/graphql`, TopStoriesQuery, {
+    limit,
+    offset,
+  });
   return {
     props: {
       topStories: data?.topStories,
+      page,
     },
   };
 };
 
 function Home({
   topStories,
+  page,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const currentPage = parseInt(page);
   return (
     <Box as="main">
       <Head>
@@ -50,6 +58,9 @@ function Home({
       </Head>
       <Layout>
         <TopStories data={topStories} />
+        <Center>
+          <Link href={`/?page=${currentPage + 1}`}>More</Link>
+        </Center>
       </Layout>
     </Box>
   );

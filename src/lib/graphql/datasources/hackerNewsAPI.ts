@@ -45,6 +45,4 @@ export class HackerNewsAPI extends RESTDataSource {
     });
     return Promise.all(kidsData);
   }
-
-
 }
