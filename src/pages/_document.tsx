@@ -4,14 +4,12 @@ function MyDocument() {
   return (
     <Html lang="en">
       <Head>
-        <title>YAI Hacker News</title>
         <meta charSet="UTF-8" />
         <meta name="application-name" content="YAH" />
         <meta
           name="description"
           content="Yet another implementation of Hacker News"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <link rel="icon" href="/favicon/favicon.ico" />
         <link

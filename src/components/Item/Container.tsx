@@ -1,12 +1,16 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
-interface ContainerProps {
+interface IContainerProps {
   children: React.ReactNode;
 }
 
-function Container({ children }: ContainerProps) {
-  return <Flex w="100%" flexDirection="column">{children}</Flex>;
+function Container({ children }: IContainerProps) {
+  return (
+    <Flex w="100%" flexDirection="column">
+      {children}
+    </Flex>
+  );
 }
 
 export { Container };

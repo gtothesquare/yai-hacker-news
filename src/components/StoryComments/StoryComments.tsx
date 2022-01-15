@@ -20,7 +20,7 @@ export interface StoryCommentsProps {
 
 function StoryComments({ commentsTree }: StoryCommentsProps) {
   return (
-    <VStack paddingTop={5} alignItems="flex-start">
+    <VStack paddingTop={5} alignItems="flex-start" w={'100%'}>
       {commentsTree?.map(({ id, time, text, by, deleted, kids, parent }) => {
         return (
           <React.Fragment key={`${id}-container`}>
