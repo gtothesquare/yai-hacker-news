@@ -1,7 +1,11 @@
 import Head from 'next/head';
 import { Box, Center, Link } from '@chakra-ui/react';
 import { request, gql } from 'graphql-request';
-import { InferGetServerSidePropsType, NextApiRequest } from 'next';
+import {
+  InferGetServerSidePropsType,
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
 import { TopStories } from 'components/TopStories';
 import { Layout } from 'components/Common';
 import { getAbsoluteUrl } from '../lib/utils/getAbsoluteUrl';
@@ -25,9 +29,11 @@ const TopStoriesQuery = gql`
 
 export const getServerSideProps = async ({
   req,
+  res,
   query,
 }: {
   req: NextApiRequest;
+  res: NextApiResponse;
   query: Params;
 }) => {
   const { origin } = getAbsoluteUrl({ req });
@@ -38,6 +44,7 @@ export const getServerSideProps = async ({
     limit,
     offset,
   });
+  res.setHeader('Cache-Control', 's-max-age=30, stale-while-revalidate=60');
   return {
     props: {
       topStories: data?.topStories,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextApiRequest } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import Head from 'next/head';
 import { Params } from 'next/dist/server/router';
 import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
@@ -28,16 +28,20 @@ const ItemQuery = gql`
 
 export const getServerSideProps = async ({
   req,
+  res,
   params,
 }: {
   req: NextApiRequest;
+  res: NextApiResponse;
   params: Params;
 }) => {
   const { itemId } = params;
   const { origin } = getAbsoluteUrl({ req });
   const data = await request(`${origin}/api/graphql`, ItemQuery, { itemId });
-  const res = await fetch(`${origin}/api/all-comments/${itemId}`);
-  const storyComments = await res.json();
+  const commentsRes = await fetch(`${origin}/api/all-comments/${itemId}`);
+  const storyComments = await commentsRes.json();
+
+  res.setHeader('Cache-Control', 's-max-age=30, stale-while-revalidate=60');
   return {
     props: {
       item: data?.item,
