@@ -12,9 +12,13 @@ export class HackerNewsAPI extends RESTDataSource {
 
     const allStoryIds = storyIds.map((id: number, index: number) => ({
       id,
+      // number in the list when rendering 1, 2 .. 34,35
       place: index + 1,
     }));
+    // paging
     const pageStoryIds = allStoryIds.slice(offset, limit + offset);
+
+    // get an array of promises
     const pageStoryData = pageStoryIds.map(
       async ({ id, place }: { id: number; place: number }) => {
         const data = await this.getItem(id);
