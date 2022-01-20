@@ -2,10 +2,6 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { PagingArgsTypes } from '../resolvers';
 import { getValue, setValue } from 'lib/cache';
 
-interface ItemWithDescendants {
-  descendants: number;
-}
-
 export class HackerNewsAPI extends RESTDataSource {
   constructor() {
     super();

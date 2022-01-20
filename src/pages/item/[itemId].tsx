@@ -41,7 +41,7 @@ export const getServerSideProps = async ({
   const commentsRes = await fetch(`${origin}/api/all-comments/${itemId}`);
   const storyComments = await commentsRes.json();
 
-  res.setHeader('Cache-Control', 's-max-age=30, stale-while-revalidate=60');
+  res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=360');
   return {
     props: {
       item: data?.item,
