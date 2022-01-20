@@ -44,7 +44,8 @@ export const getServerSideProps = async ({
     limit,
     offset,
   });
-  res.setHeader('Cache-Control', 's-max-age=30, stale-while-revalidate=60');
+
+  res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=360');
   return {
     props: {
       topStories: data?.topStories,

@@ -1,5 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { PagingArgsTypes } from '../resolvers';
+import { getValue, setValue } from 'lib/cache';
 
 export class HackerNewsAPI extends RESTDataSource {
   constructor() {
@@ -32,11 +33,34 @@ export class HackerNewsAPI extends RESTDataSource {
     return Promise.all(pageStoryData);
   }
 
+  async getCachedItem(id: number): Promise<Record<string, unknown> | null> {
+    const itemCacheKey = `${id}`;
+    return getValue(itemCacheKey);
+  }
+
+  async setCachedItem(id: number, itemData: Record<string, unknown>) {
+    const itemCacheKey = `${id}`;
+    return setValue(itemCacheKey, itemData, 'EX', 60 * 60 * 12);
+  }
+
   async getItem(id: number) {
+    const start = Date.now();
+    const itemDataCached = await this.getCachedItem(id);
+    if (itemDataCached) {
+      return {
+        ...itemDataCached,
+        totalKidsCount: itemDataCached?.descendants || 0,
+        latency: Date.now() - start,
+      };
+    }
+
     const itemData = await this.get(`item/${id}.json`);
+    await this.setCachedItem(id, itemData);
+
     return {
       ...itemData,
       totalKidsCount: itemData?.descendants || 0,
+      latency: Date.now() - start,
     };
   }
   async getKids(ids: [number]) {
