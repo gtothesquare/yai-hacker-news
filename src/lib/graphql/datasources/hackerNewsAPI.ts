@@ -40,7 +40,7 @@ export class HackerNewsAPI extends RESTDataSource {
 
   async setCachedItem(id: number, itemData: Record<string, unknown>) {
     const itemCacheKey = `${id}`;
-    return setValue(itemCacheKey, itemData, 'EX', 60 * 60 * 12);
+    return setValue(itemCacheKey, itemData, 'EX', 60 * 5); // 5 minutes
   }
 
   async getItem(id: number) {
