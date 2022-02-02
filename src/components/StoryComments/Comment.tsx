@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Link } from '@chakra-ui/react';
+import { Flex, Text, Link, Box } from '@chakra-ui/react';
 import { Container, SecondLine } from '../Item';
 import { format } from 'timeago.js';
 
@@ -32,15 +32,19 @@ function Comment({ by, text, time, deleted, id, parent }: CommentProps) {
             parent
           </Link>
         </SecondLine>
-        <Flex
-          flexDirection="column"
+        <Box
           width={'100%'}
           wordBreak={'break-word'}
-          fontSize={'0.8rem'}
+          fontSize={['0.8rem', '1rem']}
           sx={{
             p: {
               marginBlockStart: '1rem',
               marginBlockEnd: '1rem',
+              wordBreak: 'break-word',
+            },
+            'a, pre': {
+              whiteSpace: 'pre-wrap' /* css-3 */,
+              wordWrap: 'break-word' /* Internet Explorer 5.5+ */,
             },
             a: {
               color: 'rgb(51,102,187)',
