@@ -37,7 +37,7 @@ function MyDocument() {
           href="/favicon/android-chrome-512x512.png"
         />
 
-        <meta name="apple-mobile-web-app-title" content="My Site" />
+        <meta name="apple-mobile-web-app-title" content="YAH" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
