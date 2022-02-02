@@ -35,7 +35,7 @@ function Comment({ by, text, time, deleted, id, parent }: CommentProps) {
         <Box
           width={'100%'}
           wordBreak={'break-word'}
-          fontSize={['0.8rem', '1rem']}
+          fontSize={['xs', 'sm']}
           sx={{
             p: {
               marginBlockStart: '1rem',

@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react';
 
 function SecondLine({ children }: { children: React.ReactNode }) {
   return (
-    <Box fontSize="xs" color="teal">
+    <Box fontSize={['xs', 'sm']} color="teal">
       {children}
     </Box>
   );
