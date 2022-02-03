@@ -80,7 +80,7 @@ function Item({
               </SecondLine>
             </Container>
           </Flex>
-          <ItemText>{text}</ItemText>
+          <ItemText text={text} />
           <StoryComments commentsTree={storyComments} />
         </MainContainer>
       </Layout>
