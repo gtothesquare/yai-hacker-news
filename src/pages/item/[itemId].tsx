@@ -7,7 +7,7 @@ import { gql, request } from 'graphql-request';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { Layout } from 'components/Common';
 import { Item } from 'components/TopStories/types';
-import { Container, ItemLink, SecondLine } from 'components/Item';
+import { Container, ItemLink, SecondLine, ItemText } from 'components/Item';
 import { format } from 'timeago.js';
 import fetch from 'node-fetch';
 import { StoryComments, CommentItem } from 'components/StoryComments';
@@ -22,6 +22,7 @@ const ItemQuery = gql`
       by
       url
       totalKidsCount
+      text
     }
   }
 `;
@@ -57,7 +58,7 @@ function Item({
   item: Item;
   storyComments: [CommentItem];
 }) {
-  const { id, title, url, score, by, time, totalKidsCount } = item;
+  const { id, title, url, score, by, time, totalKidsCount, text } = item;
   return (
     <Box as="main" height="100%">
       <Head>
@@ -79,6 +80,7 @@ function Item({
               </SecondLine>
             </Container>
           </Flex>
+          <ItemText>{text}</ItemText>
           <StoryComments commentsTree={storyComments} />
         </MainContainer>
       </Layout>
