@@ -1,6 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
+import { HACKER_NEWS_API } from 'config';
 
 type Item = {
   descendants: number | undefined;
@@ -14,7 +14,7 @@ type Item = {
 
 async function getItem(id: number) {
   const response = await fetch(
-    `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+    `${HACKER_NEWS_API}item/${id}.json`
   );
   const itemData = (await response.json()) as Item;
   return {

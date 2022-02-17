@@ -1,11 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { PagingArgsTypes } from '../resolvers';
 import { getValue, setValue } from 'lib/cache';
+import { HACKER_NEWS_API } from 'config';
 
 export class HackerNewsAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://hacker-news.firebaseio.com/v0/';
+    this.baseURL = HACKER_NEWS_API;
   }
 
   async getTopStories({ limit, offset }: PagingArgsTypes) {
