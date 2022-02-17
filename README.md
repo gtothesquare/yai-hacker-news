@@ -8,6 +8,13 @@ In addition, I used this site daily for consuming from hacker news.
 
 - node 16 or greater
 - npm 8 or greater
+- redis 6 or greater (optional)
+
+### Configuration 
+
+`REDIS_URL` - leave empty if we don't want to use it
+`NEXT_PUBLIC_PANELBEAR_ID` - Site id in panelbear
+`HACKER_NEWS_API` - hacker news api `https://hacker-news.firebaseio.com/v0/`
 
 ## Performance
 

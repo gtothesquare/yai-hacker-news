@@ -41,7 +41,7 @@ export async function setValue(
 ): Promise<Ok | null> {
   try {
     const stringVal = JSON.stringify(value);
-    return redis.set(key, stringVal, expiryMode, time);
+    return redis?.set(key, stringVal, expiryMode, time);
   } catch (err) {
     console.warn(err);
   }
@@ -52,7 +52,7 @@ export async function getValue(
   key: string
 ): Promise<Record<string, unknown> | null> {
   try {
-    const value = await redis.get(key);
+    const value = await redis?.get(key);
     if (value) {
       return JSON.parse(value);
     }
