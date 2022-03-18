@@ -1,12 +1,20 @@
 import { ApolloServer } from 'apollo-server-micro';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { typeDefs, resolvers, HackerNewsAPI } from 'lib/graphql';
+import {
+  typeDefs,
+  resolvers,
+  HackerNewsAPI,
+  HnItemDetailsAPI,
+} from 'lib/graphql';
 
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => {
-    return { hackerNewsAPI: new HackerNewsAPI() };
+    return {
+      hackerNewsAPI: new HackerNewsAPI(),
+      hnItemDetailsAPI: new HnItemDetailsAPI(),
+    };
   },
 });
 

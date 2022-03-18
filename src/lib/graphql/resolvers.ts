@@ -20,19 +20,17 @@ export const resolvers = {
     },
   },
   Item: {
-    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
-      if (!Array.isArray(kids)) {
+    children: async (
+      { id }: { id: number },
+      __: any,
+      { dataSources }: Record<any, any>
+    ) => {
+      const details = await dataSources.hnItemDetailsAPI.getItemDetails(id);
+      const children = details?.children;
+      if (!Array.isArray(children)) {
         return [];
       }
-      return dataSources.hackerNewsAPI.getKids(kids);
-    },
-  },
-  Comment: {
-    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
-      if (!Array.isArray(kids)) {
-        return [];
-      }
-      return dataSources.hackerNewsAPI.getKids(kids);
+      return children;
     },
   },
 };

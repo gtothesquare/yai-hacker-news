@@ -13,6 +13,7 @@ import fetch from 'node-fetch';
 import { StoryComments, CommentItem } from 'components/StoryComments';
 import { MainContainer } from 'components/Common';
 
+// we use the graphql api to get
 const ItemQuery = gql`
   query Item($itemId: ID!) {
     item(id: $itemId) {
