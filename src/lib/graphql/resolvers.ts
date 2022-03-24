@@ -2,6 +2,7 @@ export interface PagingArgsTypes {
   limit: number;
   offset: number;
 }
+
 export const resolvers = {
   Query: {
     topStories: (
@@ -28,9 +29,9 @@ export const resolvers = {
       const details = await dataSources.hnItemDetailsAPI.getItemDetails(id);
       const children = details?.children;
       if (!Array.isArray(children)) {
-        return [];
+        return JSON.stringify('[]');
       }
-      return children;
+      return JSON.stringify(children);
     },
   },
 };

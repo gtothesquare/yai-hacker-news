@@ -19,7 +19,7 @@ async function getItem(id: number) {
   const itemData = (await response.json()) as Item;
   return {
     ...itemData,
-    totalKidsCount: itemData?.descendants || 0,
+    totalChildrenCount: itemData?.descendants || 0,
   };
 }
 

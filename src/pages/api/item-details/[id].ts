@@ -1,21 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 import { HACKER_NEWS_ITEM_DETAILS_API } from 'config';
-
-type ItemDetail = {
-  id: number;
-  created_at: string;
-  created_at_i: number;
-  type: 'comment' | 'story' | 'job' | 'poll' | 'pollopt';
-  title: string;
-  url: string;
-  text?: string;
-  points: number;
-  author: string;
-  parent_id?: number;
-  story_id?: number;
-  children: [ItemDetail];
-};
+import { ItemDetail } from 'types';
 
 async function getItemDetails(id: number) {
   const response = await fetch(`${HACKER_NEWS_ITEM_DETAILS_API}${id}`);

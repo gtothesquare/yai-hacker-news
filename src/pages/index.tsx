@@ -19,7 +19,7 @@ const TopStoriesQuery = gql`
       title
       by
       url
-      totalKidsCount
+      totalChildrenCount
       text
       time
       score

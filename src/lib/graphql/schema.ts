@@ -17,12 +17,19 @@ export const typeDefs = gql`
     by: String!
     url: String
     time: Int!
+    """
+    all comments data stringified, see Item.children resolver
+    """
     children: String
     text: String
-    totalKidsCount: Int
+    totalChildrenCount: Int
     parent: Int
   }
 
+  """
+  Just kept as an example and not really used. Since we instead send the children as a
+  JSON string that we convert later
+  """
   type ItemChild {
     id: ID!
     created_at: String!

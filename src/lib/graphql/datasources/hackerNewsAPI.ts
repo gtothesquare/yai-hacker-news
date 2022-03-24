@@ -68,7 +68,7 @@ export class HackerNewsAPI extends RESTDataSource {
     if (itemDataCached) {
       return {
         ...itemDataCached,
-        totalKidsCount: itemDataCached?.descendants || 0,
+        totalChildrenCount: itemDataCached?.descendants || 0,
         latency: Date.now() - start,
       };
     }
@@ -78,7 +78,7 @@ export class HackerNewsAPI extends RESTDataSource {
 
     return {
       ...itemData,
-      totalKidsCount: itemData?.descendants || 0,
+      totalChildrenCount: itemData?.descendants || 0,
       latency: Date.now() - start,
     };
   }
