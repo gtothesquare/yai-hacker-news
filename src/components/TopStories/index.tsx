@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import { Item } from './types';
+import { Item } from 'types';
 import { MainContainer } from 'components/Common';
 import { ItemStory } from './ItemStory';
 

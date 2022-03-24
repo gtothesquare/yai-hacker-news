@@ -17,20 +17,31 @@ export const typeDefs = gql`
     by: String!
     url: String
     time: Int!
-    """we use /api/all-comments instead of graphql to get this in the frontend.
-    Main reason is that graphql doesn't support unknown depth of children"""
-    kids: [Comment]
+    """
+    all comments data stringified, see Item.children resolver
+    """
+    children: String
     text: String
-    totalKidsCount: Int
+    totalChildrenCount: Int
     parent: Int
   }
 
-  type Comment {
+  """
+  Just kept as an example and not really used. Since we instead send the children as a
+  JSON string that we convert later
+  """
+  type ItemChild {
     id: ID!
-    kids: [Comment]
-    parent: Int!
-    time: Int!
+    created_at: String!
+    created_at_i: Int!
+    type: String!
+    title: String!
+    url: String!
     text: String
-    type: String
+    points: Int!
+    author: String!
+    parent_id: Int
+    story_id: Int
+    children: [ItemChild]
   }
 `;

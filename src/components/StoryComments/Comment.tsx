@@ -6,16 +6,13 @@ import { format } from 'timeago.js';
 export interface CommentProps {
   id: number;
   by: string;
-  text: string;
+  text?: string;
   time: number;
   deleted?: boolean;
-  parent: number;
+  parent?: number;
 }
 
-function Comment({ by, text, time, deleted, id, parent }: CommentProps) {
-  if (deleted) {
-    return null;
-  }
+function Comment({ by, text, time, id, parent }: CommentProps) {
 
   return (
     <Flex id={`${id}`} marginTop="5px">

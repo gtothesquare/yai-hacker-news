@@ -6,13 +6,13 @@ import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
 import { gql, request } from 'graphql-request';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { Layout } from 'components/Common';
-import { Item } from 'components/TopStories/types';
 import { Container, ItemLink, SecondLine, ItemText } from 'components/Item';
 import { format } from 'timeago.js';
-import fetch from 'node-fetch';
-import { StoryComments, CommentItem } from 'components/StoryComments';
+import { StoryComments } from 'components/StoryComments';
 import { MainContainer } from 'components/Common';
+import { Item, ItemDetail } from 'types';
 
+// we use the graphql api to get
 const ItemQuery = gql`
   query Item($itemId: ID!) {
     item(id: $itemId) {
@@ -21,7 +21,8 @@ const ItemQuery = gql`
       score
       by
       url
-      totalKidsCount
+      children
+      totalChildrenCount
       text
     }
   }
@@ -39,26 +40,34 @@ export const getServerSideProps = async ({
   const { itemId } = params;
   const { origin } = getAbsoluteUrl({ req });
   const data = await request(`${origin}/api/graphql`, ItemQuery, { itemId });
-  const commentsRes = await fetch(`${origin}/api/all-comments/${itemId}`);
-  const storyComments = await commentsRes.json();
+  const { children, ...itemRest } = data?.item;
 
   res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=360');
   return {
     props: {
-      item: data?.item,
-      storyComments,
+      item: itemRest,
+      commentsData: JSON.parse(children),
     },
   };
 };
 
 function Item({
   item,
-  storyComments,
+  commentsData,
 }: {
   item: Item;
-  storyComments: [CommentItem];
+  commentsData: Array<ItemDetail>;
 }) {
-  const { id, title, url, score, by, time, totalKidsCount, text } = item;
+  const {
+    id,
+    title,
+    url,
+    score,
+    by,
+    time,
+    totalChildrenCount,
+    text,
+  } = item;
   return (
     <Box as="main" height="100%">
       <Head>
@@ -75,13 +84,13 @@ function Item({
                   {format(time * 1000)}
                 </Text>
                 <Text as="span" marginLeft={1}>
-                  {totalKidsCount} comments
+                  {totalChildrenCount} comments
                 </Text>
               </SecondLine>
             </Container>
           </Flex>
           <ItemText text={text} />
-          <StoryComments commentsTree={storyComments} />
+          <StoryComments commentsTree={commentsData} />
         </MainContainer>
       </Layout>
     </Box>

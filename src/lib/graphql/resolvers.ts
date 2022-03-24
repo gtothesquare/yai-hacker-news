@@ -2,6 +2,7 @@ export interface PagingArgsTypes {
   limit: number;
   offset: number;
 }
+
 export const resolvers = {
   Query: {
     topStories: (
@@ -20,19 +21,17 @@ export const resolvers = {
     },
   },
   Item: {
-    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
-      if (!Array.isArray(kids)) {
-        return [];
+    children: async (
+      { id }: { id: number },
+      __: any,
+      { dataSources }: Record<any, any>
+    ) => {
+      const details = await dataSources.hnItemDetailsAPI.getItemDetails(id);
+      const children = details?.children;
+      if (!Array.isArray(children)) {
+        return JSON.stringify('[]');
       }
-      return dataSources.hackerNewsAPI.getKids(kids);
-    },
-  },
-  Comment: {
-    kids: ({ kids }: any, __: any, { dataSources }: Record<any, any>) => {
-      if (!Array.isArray(kids)) {
-        return [];
-      }
-      return dataSources.hackerNewsAPI.getKids(kids);
+      return JSON.stringify(children);
     },
   },
 };

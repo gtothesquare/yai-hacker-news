@@ -9,6 +9,11 @@ export class HackerNewsAPI extends RESTDataSource {
     this.baseURL = HACKER_NEWS_API;
   }
 
+  /**
+   *
+   * @param limit
+   * @param offset
+   */
   async getTopStories({ limit, offset }: PagingArgsTypes) {
     const storyIds = await this.get('topstories.json');
 
@@ -34,23 +39,36 @@ export class HackerNewsAPI extends RESTDataSource {
     return Promise.all(pageStoryData);
   }
 
+  /**
+   *
+   * @param id
+   */
   async getCachedItem(id: number): Promise<Record<string, unknown> | null> {
     const itemCacheKey = `${id}`;
     return getValue(itemCacheKey);
   }
 
+  /**
+   *
+   * @param id
+   * @param itemData
+   */
   async setCachedItem(id: number, itemData: Record<string, unknown>) {
     const itemCacheKey = `${id}`;
     return setValue(itemCacheKey, itemData, 'EX', 60 * 5); // 5 minutes
   }
 
+  /**
+   *
+   * @param id
+   */
   async getItem(id: number) {
     const start = Date.now();
     const itemDataCached = await this.getCachedItem(id);
     if (itemDataCached) {
       return {
         ...itemDataCached,
-        totalKidsCount: itemDataCached?.descendants || 0,
+        totalChildrenCount: itemDataCached?.descendants || 0,
         latency: Date.now() - start,
       };
     }
@@ -60,10 +78,15 @@ export class HackerNewsAPI extends RESTDataSource {
 
     return {
       ...itemData,
-      totalKidsCount: itemData?.descendants || 0,
+      totalChildrenCount: itemData?.descendants || 0,
       latency: Date.now() - start,
     };
   }
+
+  /**
+   *
+   * @param ids
+   */
   async getKids(ids: [number]) {
     const kidsData = ids.map(async (id: number) => {
       const data = await this.getItem(id);

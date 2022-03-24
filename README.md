@@ -15,10 +15,14 @@ In addition, I used this site daily for consuming from hacker news.
 `REDIS_URL` - leave empty if we don't want to use it
 `NEXT_PUBLIC_PANELBEAR_ID` - Site id in panelbear
 `HACKER_NEWS_API` - hacker news api `https://hacker-news.firebaseio.com/v0/`
+`HACKER_NEWS_ITEM_DETAILS_API` - algolia api. `https://hn.algolia.com/api/v1/items/` gets all item children in one go
 
 ## Performance
 
-The site is not as fast as the original one https://news.ycombinator.com. The main challenge is that the api for getting
+~~The site is not as fast as the original one https://news.ycombinator.com. The main challenge is that the api for getting
 comments is design for flexibility and not performance. By that it means that, comments are organized in a tree structure.
 And to get all comments you will need to traverse all parents and their children's. This is solved recursively outside
-graphql. Graphql can't handle it https://github.com/graphql/graphql-spec/issues/91.
+graphql. Graphql can't handle it https://github.com/graphql/graphql-spec/issues/91.~~
+
+Should be better with implementing the comments rendering using the algolia api.
+
