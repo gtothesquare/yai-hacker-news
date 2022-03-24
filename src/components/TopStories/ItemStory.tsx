@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, ItemLink, SecondLine } from '../Item';
 import { Link } from '@chakra-ui/react';
 import { format } from 'timeago.js';
-import { Item } from './types';
+import { Item } from 'types';
 
 function ItemStory({ storyItem }: { storyItem: Item }) {
   const { id, title, url, score, by, totalChildrenCount, time } = storyItem;
