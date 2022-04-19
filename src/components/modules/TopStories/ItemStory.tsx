@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ItemLink, SecondLine } from '../Item';
+import { Container, ItemLink, SecondLine } from 'components/common';
 import { Link } from '@chakra-ui/react';
 import { format } from 'timeago.js';
 import { Item } from 'types';

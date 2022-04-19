@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text, Link } from '@chakra-ui/react';
-import { Container, SecondLine, ItemText } from '../Item';
+import { Container, SecondLine, ItemText } from 'components/common';
 import { format } from 'timeago.js';
 
 export interface CommentProps {

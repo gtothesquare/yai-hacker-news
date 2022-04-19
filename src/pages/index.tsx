@@ -6,8 +6,8 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { TopStories } from 'components/TopStories';
-import { Layout } from 'components/Common';
+import { TopStories } from 'components/modules/TopStories';
+import { Layout } from 'components/common';
 import { getAbsoluteUrl } from '../lib/utils/getAbsoluteUrl';
 import { Params } from 'next/dist/server/router';
 
