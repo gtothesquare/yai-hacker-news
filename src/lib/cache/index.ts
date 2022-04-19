@@ -1,4 +1,4 @@
-import Redis, { Ok } from 'ioredis';
+import Redis from 'ioredis';
 
 function retryStrategy(times: number) {
   // increments retry time 1 second per time it retries.
@@ -17,7 +17,7 @@ function getHostName(url: string) {
   return null;
 }
 
-let redis: Redis.Redis;
+let redis: Redis;
 const connectionUrl = process.env.REDIS_URL;
 if (connectionUrl) {
   redis = new Redis(connectionUrl, { retryStrategy });
@@ -36,11 +36,12 @@ if (connectionUrl) {
 export async function setValue(
   key: string,
   value: Record<string, unknown>,
-  expiryMode?: string | any[],
+  expiryMode?: string,
   time?: number | string
-): Promise<Ok | null> {
+): Promise<'OK' | null> {
   try {
     const stringVal = JSON.stringify(value);
+    //@ts-ignore
     return redis?.set(key, stringVal, expiryMode, time);
   } catch (err) {
     console.warn(err);
