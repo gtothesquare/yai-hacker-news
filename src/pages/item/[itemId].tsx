@@ -1,12 +1,16 @@
 import React from 'react';
-import {GetServerSideProps, GetServerSidePropsContext, NextApiRequest, NextApiResponse} from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { Params } from 'next/dist/server/router';
 import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
 import { gql, request } from 'graphql-request';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { Layout } from 'components/common';
-import { Container, ItemLink, SecondLine, ItemText } from 'components/common/Item';
+import {
+  Container,
+  ItemLink,
+  SecondLine,
+  ItemText,
+} from 'components/common/Item';
 import { format } from 'timeago.js';
 import { StoryComments } from 'components/modules/StoryComments';
 import { MainContainer } from 'components/common';
@@ -51,16 +55,7 @@ function Item({
   item: Item;
   commentsData: Array<ItemDetail>;
 }) {
-  const {
-    id,
-    title,
-    url,
-    score,
-    by,
-    time,
-    totalChildrenCount,
-    text,
-  } = item;
+  const { id, title, url, score, by, time, totalChildrenCount, text } = item;
   return (
     <Box as="main" height="100%">
       <Head>
