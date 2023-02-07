@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {GetServerSideProps, GetServerSidePropsContext, NextApiRequest, NextApiResponse} from 'next';
 import Head from 'next/head';
 import { Params } from 'next/dist/server/router';
 import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
@@ -28,16 +28,9 @@ const ItemQuery = gql`
   }
 `;
 
-export const getServerSideProps = async ({
-  req,
-  res,
-  params,
-}: {
-  req: NextApiRequest;
-  res: NextApiResponse;
-  params: Params;
-}) => {
-  const { itemId } = params;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req, res, params } = context;
+  const itemId = params?.itemId as string;
   const { origin } = getAbsoluteUrl({ req });
   const data = await request(`${origin}/api/graphql`, ItemQuery, { itemId });
   const { children, ...itemRest } = data?.item;
