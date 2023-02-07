@@ -3,13 +3,12 @@ import { Box, Center, Link } from '@chakra-ui/react';
 import { request, gql } from 'graphql-request';
 import {
   InferGetServerSidePropsType,
-  NextApiRequest,
-  NextApiResponse,
+  GetServerSideProps
 } from 'next';
 import { TopStories } from 'components/modules/TopStories';
 import { Layout } from 'components/common';
-import { getAbsoluteUrl } from '../lib/utils/getAbsoluteUrl';
-import { Params } from 'next/dist/server/router';
+import { getAbsoluteUrl } from 'lib/utils/getAbsoluteUrl';
+
 
 const TopStoriesQuery = gql`
   query TopStories($limit: Int, $offset: Int) {
@@ -27,17 +26,11 @@ const TopStoriesQuery = gql`
   }
 `;
 
-export const getServerSideProps = async ({
-  req,
-  res,
-  query,
-}: {
-  req: NextApiRequest;
-  res: NextApiResponse;
-  query: Params;
-}) => {
-  const { origin } = getAbsoluteUrl({ req });
-  const page = query?.page || 1;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req, res, query } = context;
+  const { origin } = getAbsoluteUrl({ req  });
+  const pageQueryString = query?.page as string;
+  const page = pageQueryString ? parseInt(pageQueryString) : 1;
   const limit = 40;
   const offset = limit * (page - 1);
   const data = await request(`${origin}/api/graphql`, TopStoriesQuery, {

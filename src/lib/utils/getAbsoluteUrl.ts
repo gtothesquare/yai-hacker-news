@@ -1,6 +1,6 @@
-import { NextApiRequest } from 'next';
+import {NextIncomingMessage} from "next/dist/server/request-meta";
 
-export function getAbsoluteUrl({ req }: { req: NextApiRequest }) {
+export function getAbsoluteUrl({ req }: { req: NextIncomingMessage }) {
   let host;
   let protocol = 'http:';
   if (!req) {
