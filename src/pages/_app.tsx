@@ -3,13 +3,11 @@ import { usePanelbear } from '@panelbear/panelbear-nextjs';
 import Head from 'next/head';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'lib/theme';
+import { useCronitor } from '@cronitorio/cronitor-rum-nextjs';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // Load Panelbear only once during the app lifecycle
-  usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_ID || '', {
-    scriptSrc: '/teddy.js',
-    honorDNT: true,
-  });
+  // Load CRONITOR only once during the app lifecycle
+  useCronitor(process.env.NEXT_PUBLIC_CRONITOR_ID || '');
   return (
     <>
       <Head>

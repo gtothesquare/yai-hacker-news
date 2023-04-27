@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
+    "@cronitorio/cronitor-rum-nextjs": "^0.3.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@panelbear/panelbear-nextjs": "^2.0.1",
