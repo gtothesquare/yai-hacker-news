@@ -22,3 +22,18 @@ export interface ItemComment {
   text?: string;
   kids?: number[];
 }
+
+export interface ItemAlgolia {
+  id: number;
+  created_at: string;
+  created_at_i: number;
+  type: 'comment' | 'story' | 'job' | 'poll' | 'pollopt';
+  title: string;
+  url: string;
+  text?: string;
+  points: number;
+  author: string;
+  parent_id?: number;
+  story_id?: number;
+  children: [ItemAlgolia];
+}

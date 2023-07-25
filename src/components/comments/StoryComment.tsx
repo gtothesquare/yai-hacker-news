@@ -1,24 +1,25 @@
+'use client';
 import React from 'react';
-import { ItemComment } from '@/types';
+import { ItemAlgolia } from '@/types';
 import { format } from 'timeago.js';
 import Link from '@/components/ui/Link';
 
 interface Props {
-  commentData: ItemComment;
+  commentData: ItemAlgolia;
 }
 
 export function StoryComment({ commentData }: Props) {
-  const { id, by, time, text, comments, parent } = commentData;
+  const { id, author, created_at_i, text, children, parent_id } = commentData;
   return (
     <div id={`${id}`}>
       <div className="flex flex-col text-xs md:text-sm">
         <div className="text-gray-500 flex space-x-1 py-4">
-          <div>{by}</div>
-          <div>{format(time * 1000)}</div>
+          <div>{author}</div>
+          <div>{format(created_at_i * 1000)}</div>
           <div>|</div>
-          {parent ? (
+          {parent_id ? (
             <div>
-              <Link href={`#${parent}`}>parent</Link>
+              <Link href={`#${parent_id}`}>parent</Link>
             </div>
           ) : null}
         </div>
@@ -29,7 +30,7 @@ export function StoryComment({ commentData }: Props) {
           }}
         />
         <div className="flex flex-col space-x-4 pl-6">
-          {comments.map((comment) => (
+          {children.map((comment) => (
             <StoryComment key={comment.id} commentData={comment} />
           ))}
         </div>

@@ -15,7 +15,7 @@ export default async function Home({ searchParams }: Props) {
   return (
     <div>
       <Stories storyIds={topStories} page={currentPage} limit={40} />
-      <div className="w-full text-center">
+      <div className="pt-4 w-full text-center">
         <Link href={`/?page=${nextPage}`}>More</Link>
       </div>
     </div>
