@@ -1,21 +1,11 @@
-import { cache } from 'react';
 import 'server-only';
-import { HACKER_NEWS_ALGOLIA_API, HACKER_NEWS_API } from '@/config';
+import { HACKER_NEWS_API } from '@/config';
 
-export const fetchData = cache(async <T>(path: string): Promise<T> => {
-  const res = await fetch(`${HACKER_NEWS_API}/${path}.json`);
-
-  if (res.status !== 200) {
-    throw new Error(`Status ${res.status}`);
-  }
-  return res.json() as T;
-});
-
-export const fetchDataAlgolia = cache(async <T>(path: string): Promise<T> => {
-  const res = await fetch(`${HACKER_NEWS_ALGOLIA_API}/${path}`);
+export const fetchData = async <T>(path: string): Promise<T> => {
+  const res = await fetch(`${HACKER_NEWS_API}/${path}.json`, { next: { revalidate: 0 } });
 
   if (res.status !== 200) {
     throw new Error(`Status ${res.status}`);
   }
-  return res.json() as T;
-});
+  return res.json();
+};

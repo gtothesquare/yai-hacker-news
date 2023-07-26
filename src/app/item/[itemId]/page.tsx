@@ -1,9 +1,10 @@
 import React from 'react';
-import { fetchData, fetchDataAlgolia } from '@/lib/api/fetchData';
+import { fetchData } from '@/lib/api/fetchData';
 import Link from '@/components/ui/Link';
 import { format } from 'timeago.js';
 import { Item, ItemAlgolia } from '@/types';
 import { StoryComment } from '@/components/comments/StoryComment';
+import { fetchAlgoliaData } from '@/lib/api/fetchAlgoliaData';
 
 interface Props {
   params: {
@@ -20,7 +21,7 @@ export async function generateMetadata({ params: { itemId } }: Props) {
 
 async function ItemPage({ params: { itemId } }: Props) {
   const item = await fetchData<Item>(`/item/${itemId}`);
-  const { children } = await fetchDataAlgolia<ItemAlgolia>(`/items/${itemId}`);
+  const { children } = await fetchAlgoliaData<ItemAlgolia>(`/items/${itemId}`);
   return (
     <div>
       <div className="flex space-x-2">
