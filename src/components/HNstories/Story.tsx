@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import { fetchData } from '@/lib/api/fetchData';
 import { Item } from '@/types';
 import { format } from 'timeago.js';

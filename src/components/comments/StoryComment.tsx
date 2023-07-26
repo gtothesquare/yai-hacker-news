@@ -2,7 +2,7 @@
 import React from 'react';
 import { ItemAlgolia } from '@/types';
 import { format } from 'timeago.js';
-import Link from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 
 interface Props {
   commentData: ItemAlgolia;

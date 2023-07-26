@@ -1,6 +1,6 @@
 import React from 'react';
 import { fetchData } from '@/lib/api/fetchData';
-import Link from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import { format } from 'timeago.js';
 import { Item, ItemAlgolia } from '@/types';
 import { StoryComment } from '@/components/comments/StoryComment';

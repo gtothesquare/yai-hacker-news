@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@/components/stories/Story';
+import { Story } from '@/components/HNstories/Story';
 
 interface Props {
   storyIds: number[];

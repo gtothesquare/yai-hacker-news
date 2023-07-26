@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 
 export function Footer() {
   return (

@@ -13,4 +13,4 @@ function Link({ children, href }: Props) {
   );
 }
 
-export default Link;
+export { Link };
