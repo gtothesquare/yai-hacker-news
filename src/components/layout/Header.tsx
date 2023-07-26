@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../ui/Link';
+import { Link } from '@/components/ui/Link';
 
 export function Header() {
   return (
