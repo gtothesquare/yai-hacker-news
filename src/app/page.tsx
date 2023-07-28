@@ -1,7 +1,7 @@
 import React from 'react';
 import { fetchData } from '@/lib/api/fetchData';
-import { Stories } from '@/components/stories/Stories';
-import Link from '@/components/ui/Link';
+import { Stories } from '@/components/HNstories/Stories';
+import { Link } from '@/components/ui/Link';
 
 interface Props {
   searchParams: { page?: string };
