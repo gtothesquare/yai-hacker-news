@@ -36,14 +36,11 @@ async function Story({ storyId, place }: Props) {
           <Link href={url}>{story.title}</Link>
         </div>
         <div className="flex space-x-1 text-sm text-gray-500">
-          <div>{story.score} points</div>
-          <div>{story.by}</div>
-          <div>
-            <Link href={commentPath}>{format(story.time * 1000)}</Link>
-          </div>
-          <div>
+          <p>
+            {story.score} points {story.by}{' '}
+            <Link href={commentPath}>{format(story.time * 1000)}</Link>{' '}
             <Link href={commentPath}>{story.descendants} comments</Link>
-          </div>
+          </p>
         </div>
       </div>
     </div>

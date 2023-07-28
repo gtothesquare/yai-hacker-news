@@ -28,10 +28,10 @@ async function ItemPage({ params: { itemId } }: Props) {
         {item.url ? <Link href={item.url}>{item.title}</Link> : item.title}
       </div>
       <div className="flex space-x-1 text-sm text-gray-500">
-        <div>{item.score} points</div>
-        <div>{item.by}</div>
-        <div>{format(item.time * 1000)}</div>
-        <div>{item.descendants} comments</div>
+        <p>
+          {item.score} points {item.score} points {item.by} {format(item.time * 1000)}{' '}
+          {item.descendants} comments
+        </p>
       </div>
       {children.map((comment) => (
         <StoryComment key={comment.id} commentData={comment} />
