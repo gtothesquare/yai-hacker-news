@@ -37,3 +37,17 @@ export interface ItemAlgolia {
   story_id?: number;
   children: [ItemAlgolia];
 }
+
+export interface SearchItem {
+  id: number;
+  created_at: string;
+  created_at_i: number;
+  title: string;
+  url: string;
+  points: number;
+  author: string;
+  num_comments: number;
+  objectID: number;
+  relevancy_score: number;
+  parent_id?: number;
+}
