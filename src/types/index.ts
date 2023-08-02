@@ -9,10 +9,10 @@ export interface Item {
   parent: string;
   time: number;
   /*
-  *graphql api can handle "get all" children of a tree like structure of many levels
-  * or threads. So, we hack it by getting all children and sending it as a JSON string
-  * that then we convert to an array of objects
-  */
+   *graphql api can handle "get all" children of a tree like structure of many levels
+   * or threads. So, we hack it by getting all children and sending it as a JSON string
+   * that then we convert to an array of objects
+   */
   children: Array<ItemDetail>;
   totalChildrenCount: number;
   text?: string;
@@ -33,4 +33,3 @@ export interface ItemDetail {
   story_id?: number;
   children: [ItemDetail];
 }
-
