@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { ItemAlgolia } from '@/types';
 import { format } from 'timeago.js';
@@ -22,7 +21,7 @@ export function StoryComment({ commentData }: Props) {
         <div
           className="w-full break-word [&>p]:break-words [&>p]:my-2 [&>pre]:break-words [&>pre]:whitespace-pre-wrap [&>pre]:text-xs [&>pre]:my-2 [&_a]:underline [&_a]:text-sky-500"
           dangerouslySetInnerHTML={{
-            __html: text ?? '',
+            __html: (text ?? '').replace(/<script[\s\S]*?<\/script>/gi, ''),
           }}
         />
         <div className="flex flex-col space-x-4 pl-6">

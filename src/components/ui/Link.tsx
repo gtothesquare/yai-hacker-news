@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link';
 
 interface Props {
   href: string;
@@ -7,9 +8,9 @@ interface Props {
 
 function Link({ children, href }: Props) {
   return (
-    <a className="hover:underline" href={href}>
+    <NextLink className="hover:underline" href={href}>
       {children}
-    </a>
+    </NextLink>
   );
 }
 

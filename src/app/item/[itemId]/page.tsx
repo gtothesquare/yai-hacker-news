@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cache } from 'react';
 import { fetchData } from '@/lib/api/fetchData';
 import { Link } from '@/components/ui/Link';
 import { format } from 'timeago.js';
@@ -6,21 +6,35 @@ import { Item, ItemAlgolia } from '@/types';
 import { StoryComment } from '@/components/comments/StoryComment';
 import { fetchAlgoliaData } from '@/lib/api/fetchAlgoliaData';
 
+const getItem = cache((itemId: string) => fetchData<Item>(`/item/${itemId}`));
+
 interface Props {
-  params: {
+  params: Promise<{
     itemId: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({ params: { itemId } }: Props) {
-  const item = await fetchData<Item>(`/item/${itemId}`);
+export async function generateMetadata(props: Props) {
+  const params = await props.params;
+
+  const {
+    itemId
+  } = params;
+
+  const item = await getItem(itemId);
   return {
     title: `Yai Hacker News | ${item.title}`,
   };
 }
 
-async function ItemPage({ params: { itemId } }: Props) {
-  const item = await fetchData<Item>(`/item/${itemId}`);
+async function ItemPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    itemId
+  } = params;
+
+  const item = await getItem(itemId);
   const { children } = await fetchAlgoliaData<ItemAlgolia>(`/items/${itemId}`);
   return (
     <div>

@@ -14,7 +14,7 @@ export function SearchField({ currentQuery }: { currentQuery?: string }) {
         autoCorrect="off"
         spellCheck="false"
         autoCapitalize="none"
-        autoComplete="false"
+        autoComplete="off"
         defaultValue={currentQuery}
       />
     </form>

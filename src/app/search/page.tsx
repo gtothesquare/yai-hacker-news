@@ -5,9 +5,9 @@ import { SearchItem } from '@/types';
 import { Story } from '@/components/HNstories/Story';
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     query: string;
-  };
+  }>;
 }
 
 interface SearchResult {
@@ -23,7 +23,18 @@ async function search({ query, tags = ['story'] }: { query: string; tags?: strin
   return result.hits ?? [];
 }
 
-async function SearchPage({ searchParams: { query } }: Props) {
+export const metadata = {
+  title: 'Search',
+  description: 'Search Hacker News stories',
+};
+
+async function SearchPage(props: Props) {
+  const searchParams = await props.searchParams;
+
+  const {
+    query
+  } = searchParams;
+
   const searchItems = await search({ query });
   return (
     <div>

@@ -3,9 +3,24 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import React from 'react';
 
-export const metadata = {
-  title: 'Yai Hacker News',
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Yai Hacker News',
+    template: '%s | Yai Hacker News',
+  },
   description: 'Yet another hacker news clone',
+  openGraph: {
+    title: 'Yai Hacker News',
+    description: 'Yet another hacker news clone',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Yai Hacker News',
+    description: 'Yet another hacker news clone',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

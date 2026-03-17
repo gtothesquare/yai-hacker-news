@@ -51,3 +51,19 @@ export interface SearchItem {
   relevancy_score: number;
   parent_id?: number;
 }
+
+//to describe the children
+export interface ItemDetail {
+  id: number;
+  created_at: string;
+  created_at_i: number;
+  type: 'comment' | 'story' | 'job' | 'poll' | 'pollopt';
+  title: string;
+  url: string;
+  text?: string;
+  points: number;
+  author: string;
+  parent_id?: number;
+  story_id?: number;
+  children: [ItemDetail];
+}

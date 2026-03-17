@@ -4,10 +4,11 @@ import { Stories } from '@/components/HNstories/Stories';
 import { Link } from '@/components/ui/Link';
 
 interface Props {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }
 
-export default async function Home({ searchParams }: Props) {
+export default async function Home(props: Props) {
+  const searchParams = await props.searchParams;
   const { page } = searchParams;
   const currentPage = !page ? 1 : parseInt(page);
   const nextPage = currentPage + 1;
